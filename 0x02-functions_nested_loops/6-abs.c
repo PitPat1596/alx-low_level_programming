@@ -1,14 +1,21 @@
 #include "main.h"
 
 /**
- * print_alphabet - prints the alpha in lowercase
+ * _abs - Computes the absolute value
+ * of an integer
+ *
+ * @i: input number as an integer.
+ *
+ * Return: absolute value
  */
-void print_alphabet(void)
+int _abs(int i)
 {
-	char la;
-
-	for (la = 'a'; la <= 'z'; la++)
-		_putchar('\n');
-
-	_putchar('\n');
+	if (i >= 0)
+	{
+		return (i);
+	}
+	else
+	{
+		return (i * -1);
+	}
 }
