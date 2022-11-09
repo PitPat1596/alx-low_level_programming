@@ -1,54 +1,52 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 /**
- * _strlen - get length
- * @c: string
- * Return: returns length
+ * argstostr - concatenates all the arguments of a program.
+ * @ac: argument count.
+ * @av: argument vector.
+ *
+ * Return: pointer of an array of char
  */
-
-int _strlen(char *c)
-{
-	int len;
-
-	for (len = 0; c[len] != '\0'; len++)
-		;
-
-	return (len);
-}
-
-/**
- * argstostr - concat str
- * @ac: number of args
- * @av: args
- * Return: returns a pointer to the two strings concatenated, or NULL if fails
- */
-
 char *argstostr(int ac, char **av)
 {
-	char *ptr;
-	int x, y, len = 0, c;
+	char *aout;
+	int c, i, j, ia;
 
-	if (ac == 0 || av == NULL)
+	if (ac == 0)
 		return (NULL);
 
-	for (x = 0; x < ac; x++)
-		len += _strlen(av[x]);
-
-	ptr = malloc((len + ac + 1) * sizeof(char));
-
-	if (!ptr)
-		return (NULL);
-
-	for (x = 0; x < ac; x++)
+	for (c = i = 0; i < ac; i++)
 	{
-		for (y = 0; av[x][y] != '\0'; y++, c++)
-			ptr[c] = av[x][y];
-		ptr[c] = '\n';
+		if (av[i] == NULL)
+			return (NULL);
+
+		for (j = 0; av[i][j] != '\0'; j++)
+			c++;
 		c++;
 	}
-	ptr[c] = '\0';
-	return (ptr);
+
+	aout = malloc((c + 1) * sizeof(char));
+
+	if (aout == NULL)
+	{
+		free(aout);
+		return (NULL);
+	}
+
+	for (i = j = ia = 0; ia < c; j++, ia++)
+	{
+		if (av[i][j] == '\0')
+		{
+			aout[ia] = '\n';
+			i++;
+			ia++;
+			j = 0;
+		}
+		if (ia < c - 1)
+			aout[ia] = av[i][j];
+	}
+	aout[ia] = '\0';
+
+	return (aout);
 }
